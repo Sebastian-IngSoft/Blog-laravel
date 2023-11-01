@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CursoController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', HomeController::class);
+Route::controller(CursoController::class)->group(function(){
+    Route::get('curso','index');        
+    Route::get('curso/create','create');  
+    //pasa la variable course      
+    Route::get('curso/{course}','show');        
 });

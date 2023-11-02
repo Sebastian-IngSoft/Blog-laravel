@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\AssignOp\Concat;
 
 class CursoController extends Controller
 {
     //encargado de mostrar la pagina principal
     public function index()
     {
-        return view('cursos.index');
+        $curso = Curso::paginate();
+        return view('cursos.index', compact('curso'));
     }
     //para formularios o crear
     public function create()
@@ -17,10 +20,9 @@ class CursoController extends Controller
         return view('cursos.create');
     }
     //para mostrar
-    public function show($course)
+    public function show($id)
     {   
-        //la cadena 'curso es lo que se usa en el view' 
-        //compact = ['curso' =>$course]
+        $course = Curso::find($id);
         return view('cursos.show',compact('course'));
     }
 }

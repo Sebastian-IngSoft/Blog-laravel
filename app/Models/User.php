@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+//importar para modificar atributo
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -42,4 +45,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //hace que lo registre en minusculas
+    protected function name(): Attribute
+    {
+        return new Attribute(
+            //traer de la bd en funcion flecha
+            get: fn($value) => ucwords($value)
+            ,
+            //para almacenar en la bd igual a la funcion flecha
+            set: function ($value) {
+                return strtolower($value);
+            }
+        );
+    }
 }

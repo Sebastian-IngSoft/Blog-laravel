@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class);
+
 Route::controller(CursoController::class)->group(function(){
-    Route::get('curso','index');        
-    Route::get('curso/create','create');  
+    Route::get('curso','index')->name('cursos.index');//el name se usa para los href en el blade        
+    Route::get('curso/create','create')->name('cursos.create');  
     //pasa la variable course      
-    Route::get('curso/{course}','show');        
+    Route::get('curso/{id}','show')->name('cursos.show');        
 });

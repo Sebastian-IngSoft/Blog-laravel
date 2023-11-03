@@ -11,7 +11,7 @@ class CursoController extends Controller
     //encargado de mostrar la pagina principal
     public function index()
     {
-        $curso = Curso::paginate();
+        $curso = Curso::orderBy('id', 'desc')->paginate();
         return view('cursos.index', compact('curso'));
     }
     //para formularios o crear
@@ -19,10 +19,34 @@ class CursoController extends Controller
     {
         return view('cursos.create');
     }
+    public function store(Request $request)
+    {
+        $curso = new Curso();
+        $curso->name = $request->name;
+        $curso->description = $request->description;
+        $curso->categoria = $request->categoria;
+        $curso->save();
+        return redirect()->route('cursos.show', $curso);
+    }
     //para mostrar
     public function show($id)
-    {   
+    {
+        //forma 1 para pedir el curso por id
         $course = Curso::find($id);
-        return view('cursos.show',compact('course'));
+        return view('cursos.show', compact('course'));
+    }
+    public function edit(Curso $curso)
+    {
+        //forma 2 para pedir el curso por id
+        return view('cursos.edit', compact('curso'));
+    }
+    public function update(Curso $curso, Request $request)
+    {
+        $curso->name = $request->name;
+        $curso->description = $request->description;
+        $curso->categoria = $request->categoria;
+        $curso->save();
+
+        return redirect()->route('cursos.show',$curso);
     }
 }

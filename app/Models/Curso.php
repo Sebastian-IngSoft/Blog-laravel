@@ -10,4 +10,7 @@ class Curso extends Model
     use HasFactory;
     //para asignar a la tabla
     protected $table = 'cursos';
+    
+    protected $fillable =['name','description','categoria'];//solo llena los campos
+    //protected $guarded =[];//llena todo menos..
 }

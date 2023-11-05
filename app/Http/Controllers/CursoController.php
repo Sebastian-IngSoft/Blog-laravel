@@ -23,13 +23,21 @@ class CursoController extends Controller
     public function store(StoreCurso $request)//hace la validacion desde el store curso
     {
         
-        //si falla algo ya no ejecuta nada de abajo, y retorna a la pagina que estaba
-
-        $curso = new Curso();
-        $curso->name = $request->name;
-        $curso->description = $request->description;
-        $curso->categoria = $request->categoria;
-        $curso->save();
+        
+        // $curso = new Curso();
+        // $curso->name = $request->name;
+        // $curso->description = $request->description;
+        // $curso->categoria = $request->categoria;
+        // $curso->save();
+        // esto de abajo es lo que hace la asignacion masiva
+        //$curso2 = Curso::create([
+        //     'name' => $request->name,
+        //     'description' => $request->description,
+        //     'categoria' => $request->categoria
+        // ]);
+        //asignacion masiva
+        $curso = Curso::create($request->all());//por temas de seguridad se requiere el fillable en el model o el guarded
+        
         return redirect()->route('cursos.show', $curso);
     }
     //para mostrar
@@ -46,11 +54,12 @@ class CursoController extends Controller
     }
     public function update(Curso $curso, Request $request)
     {
-        $curso->name = $request->name;
-        $curso->description = $request->description;
-        $curso->categoria = $request->categoria;
-        $curso->save();
-
+        // $curso->name = $request->name;
+        // $curso->description = $request->description;
+        // $curso->categoria = $request->categoria;
+        // $curso->save();
+        //asignacion masiva hace lo mismo que arriba
+        $curso->update($request->all());
         return redirect()->route('cursos.show',$curso);
     }
 }

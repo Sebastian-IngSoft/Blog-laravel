@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCurso;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Concat;
@@ -19,15 +20,10 @@ class CursoController extends Controller
     {
         return view('cursos.create');
     }
-    public function store(Request $request)
+    public function store(StoreCurso $request)//hace la validacion desde el store curso
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'categoria' => 'required'
-        ]);
-        //si falla algo ya no ejecuta nada de abajo, y retorna a la pagina que estaba
         
+        //si falla algo ya no ejecuta nada de abajo, y retorna a la pagina que estaba
 
         $curso = new Curso();
         $curso->name = $request->name;

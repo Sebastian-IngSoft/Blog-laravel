@@ -4,6 +4,8 @@
     <p>vista edit</p>
     <strong>Formulario</strong>
     <br>
+    <a href="{{ route('cursos.index') }}"> volver</a>
+    <br>
     <form action="{{ route('cursos.update',$curso {{--envia el curso original para editarlo--}})}}" method="post">
         @csrf {{--crea un token para que se pueda enviar--}}
         @method('put')

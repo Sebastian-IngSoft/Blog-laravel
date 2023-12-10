@@ -26,5 +26,6 @@ Route::controller(CursoController::class)->group(function(){
     Route::get('curso/{id}','show')->name('cursos.show');        
     Route::get('curso/{curso}/edit','edit')->name('cursos.edit');   
     //put para actualizar     
-    Route::put('curso/{curso}','update')->name('cursos.update');        
+    Route::put('curso/{curso}','update')->name('cursos.update');       
+     
 });
